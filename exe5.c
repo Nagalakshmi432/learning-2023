@@ -1,36 +1,40 @@
 #include <stdio.h>
 
-int bit_operations(int num, int oper_type) {
-    switch (oper_type) {
-        case 1: // Set 1st bit
-            num |= 1; // Perform bitwise OR with 00000000000000000000000000000001
-            break;
-        case 2: // Clear 31st bit
-            num &= ~(1 << 31); // Perform bitwise AND with 01111111111111111111111111111111
-            break;
-        case 3: // Toggle 16th bit
-            num ^= (1 << 15); // Perform bitwise XOR with 00000000000000010000000000000000
-            break;
-        default:
-            printf("Invalid operation type\n");
-            break;
-    }
-
-    return num;
-}
-
 int main() {
-    int num, oper_type, result;
-
-    printf("Enter an integer (32 bits): ");
-    scanf("%d", &num);
-
-    printf("Enter the operation type (1, 2, or 3): ");
-    scanf("%d", &oper_type);
-
-    result = bit_operations(num, oper_type);
-
-    printf("Result: %d\n", result);
-
+    int n, i;
+    printf("Enter the number of values: ");
+    scanf("%d", &n);
+    
+    if (n <= 0) {
+        printf("Not Valid\n");
+        return 0;
+    }
+    
+    int smallest_digit = 9;  // Initialize with maximum possible value
+    int largest_digit = 0;   // Initialize with minimum possible value
+    
+    for (i = 0; i < n; i++) {
+        int num;
+        printf("Enter number %d: ", i+1);
+        scanf("%d", &num);
+        
+        int temp = num;
+        while (temp != 0) {
+            int digit = temp % 10;
+            if (digit < smallest_digit)
+                smallest_digit = digit;
+            if (digit > largest_digit)
+                largest_digit = digit;
+            temp /= 10;
+        }
+    }
+    
+    if (smallest_digit == 9 || largest_digit == 0) {
+        printf("Not Valid\n");
+    } else {
+        printf("Smallest digit: %d\n", smallest_digit);
+        printf("Largest digit: %d\n", largest_digit);
+    }
+    
     return 0;
 }
