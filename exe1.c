@@ -1,31 +1,30 @@
 #include <stdio.h>
 
-int findMaxUsingIfElse(int num1, int num2) {
-    if (num1 > num2) {
-        return num1;
-    } else {
-        return num2;
-    }
-}
+void printExponent(double num) {
+    // Pointer to the memory location of the double variable
+    unsigned long long* p = (unsigned long long*)&num;
 
-int findMaxUsingTernaryOperator(int num1, int num2) {
-    return (num1 > num2) ? num1 : num2;
+    // Extracting the exponent part using bitwise operations
+    unsigned long long exponent = (*p >> 52) & 0x7FF;
+
+    // Converting the exponent to hexadecimal and binary formats
+    char hex[4];
+    sprintf(hex, "0x%llX", exponent);
+    char binary[12];
+    for (int i = 0; i < 11; i++) {
+        binary[i] = (exponent >> (10 - i)) & 1 ? '1' : '0';
+    }
+    binary[11] = '\0';
+
+    // Printing the results
+    printf("Hexadecimal exponent: %s\n", hex);
+    printf("Binary exponent: %s\n", binary);
 }
 
 int main() {
-    int num1, num2;
-    
-    printf("Enter the first number: ");
-    scanf("%d", &num1);
-    
-    printf("Enter the second number: ");
-    scanf("%d", &num2);
-    
-    int maxUsingIfElse = findMaxUsingIfElse(num1, num2);
-    int maxUsingTernary = findMaxUsingTernaryOperator(num1, num2);
-    
-    printf("Using if-else, the largest number is: %d\n", maxUsingIfElse);
-    printf("Using the ternary operator, the largest number is: %d\n", maxUsingTernary);
-    
+    double x = 0.7;
+    printExponent(x);
+
     return 0;
 }
+

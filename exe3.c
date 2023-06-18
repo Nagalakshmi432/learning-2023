@@ -1,35 +1,15 @@
 #include <stdio.h>
 
 int main() {
-    int rollNo, physicsMarks, mathMarks, chemistryMarks;
-    char name[100];
+    int a[] = {10, 20, 30, 40, 50};
+    int size = sizeof(a) / sizeof(a[0]);
 
-    printf("Enter Roll No: ");
-    scanf("%d", &rollNo);
+    int sum = 0;
+    for (int i = 0; i < size; i += 2) {
+        sum += a[i];
+    }
 
-    printf("Enter Name: ");
-    scanf(" %[^\n]", name);
-
-    printf("Enter Marks of Physics: ");
-    scanf("%d", &physicsMarks);
-
-    printf("Enter Marks of Math: ");
-    scanf("%d", &mathMarks);
-
-    printf("Enter Marks of Chemistry: ");
-    scanf("%d", &chemistryMarks);
-
-    int totalMarks = physicsMarks + mathMarks + chemistryMarks;
-    float percentage = (float)totalMarks / 3;
-
-    printf("\n-------- Student Summary --------\n");
-    printf("Roll No: %d\n", rollNo);
-    printf("Name: %s\n", name);
-    printf("Physics Marks: %d\n", physicsMarks);
-    printf("Math Marks: %d\n", mathMarks);
-    printf("Chemistry Marks: %d\n", chemistryMarks);
-    printf("Total Marks: %d\n", totalMarks);
-    printf("Percentage: %.2f%%\n", percentage);
+    printf("Sum of alternate elements: %d\n", sum);
 
     return 0;
 }

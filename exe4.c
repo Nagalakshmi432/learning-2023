@@ -1,42 +1,24 @@
 #include <stdio.h>
 
-int main() {
-    float num1, num2, result;
-    char operator;
-
-    printf("Enter Operand 1: ");
-    scanf("%f", &num1);
-
-    printf("Enter Operator: ");
-    scanf(" %c", &operator);
-
-    printf("Enter Operand 2: ");
-    scanf("%f", &num2);
-
-    switch (operator) {
-        case '+':
-            result = num1 + num2;
-            printf("Result: %.2f\n", result);
-            break;
-        case '-':
-            result = num1 - num2;
-            printf("Result: %.2f\n", result);
-            break;
-        case '*':
-            result = num1 * num2;
-            printf("Result: %.2f\n", result);
-            break;
-        case '/':
-            if (num2 != 0) {
-                result = num1 / num2;
-                printf("Result: %.2f\n", result);
-            } else {
-                printf("Error: Division by zero\n");
-            }
-            break;
-        default:
-            printf("Error: Invalid operator\n");
+int countSetBits(unsigned int num) {
+    int count = 0;
+    while (num) {
+        count += num & 1;
+        num >>= 1;
     }
+    return count;
+}
+
+int main() {
+    unsigned int a[] = {0x1, 0xF4, 0x10001};
+    int size = sizeof(a) / sizeof(a[0]);
+
+    int totalSetBits = 0;
+    for (int i = 0; i < size; i++) {
+        totalSetBits += countSetBits(a[i]);
+    }
+
+    printf("Total number of set bits: %d\n", totalSetBits);
 
     return 0;
 }
