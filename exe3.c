@@ -1,37 +1,24 @@
 #include <stdio.h>
-
-int findLargestNumber(int num);
-
 int main() {
-    int num;
-    printf("Enter a 4-digit number: ");
-    scanf("%d", &num);
-
-    int largestNumber = findLargestNumber(num);
-    printf("Largest number after deleting a digit: %d\n", largestNumber);
-
-    return 0;
-}
-
-int findLargestNumber(int num) {
-    int largestNumber = 0;
-
-    for (int i = 0; i < 4; i++) {
-        int temp = num / 10; // Remove the current digit
-        int divisor = 1;
-
-        for (int j = 0; j < 3; j++) {
-            divisor *= 10;
-        }
-
-        int newNumber = temp * divisor + (num % divisor); // Reconstruct the number without the current digit
-
-        if (newNumber > largestNumber) {
-            largestNumber = newNumber;
-        }
-
-        num = newNumber; // Update the number for the next iteration
+    int size, i, temp;
+    printf("Enter the size of the array: ");
+    scanf("%d", &size);
+    int array[size]; 
+    printf("Enter the elements of the array:\n");
+    for (i = 0; i < size; i++) {
+        scanf("%d", &array[i]);
+    }  
+    // Reversing the array
+    for (i = 0; i < size / 2; i++) {
+        temp = array[i];
+        array[i] = array[size - i - 1];
+        array[size - i - 1] = temp;
     }
-
-    return largestNumber;
+    printf("Reversed arra is :\n");
+    for (i = 0; i < size; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("\n");
+    
+    return 0;
 }

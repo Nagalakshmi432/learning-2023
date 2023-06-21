@@ -1,40 +1,21 @@
 #include <stdio.h>
 
 int main() {
-    int n, i;
-    printf("Enter the number of values: ");
-    scanf("%d", &n);
-    
-    if (n <= 0) {
-        printf("Not Valid\n");
-        return 0;
-    }
-    
-    int smallest_digit = 9;  // Initialize with maximum possible value
-    int largest_digit = 0;   // Initialize with minimum possible value
-    
-    for (i = 0; i < n; i++) {
-        int num;
-        printf("Enter number %d: ", i+1);
-        scanf("%d", &num);
-        
-        int temp = num;
-        while (temp != 0) {
-            int digit = temp % 10;
-            if (digit < smallest_digit)
-                smallest_digit = digit;
-            if (digit > largest_digit)
-                largest_digit = digit;
-            temp /= 10;
+    int arr[] = {64, 84, 21, 36, 17, 90, 77, 5, 10, 48, 69};
+    int evenSum = 0;
+    int oddSum = 0;
+    int length = sizeof(arr) / sizeof(arr[0]);
+
+    for (int i = 0; i < length; i++) {
+        if (i % 2 == 0) {
+            evenSum += arr[i];
+        } else {
+            oddSum += arr[i];
         }
     }
-    
-    if (smallest_digit == 9 || largest_digit == 0) {
-        printf("Not Valid\n");
-    } else {
-        printf("Smallest digit: %d\n", smallest_digit);
-        printf("Largest digit: %d\n", largest_digit);
-    }
-    
+
+    printf("Sum of even indexed elements: %d\n", evenSum);
+    printf("Sum of odd indexed elements: %d\n", oddSum);
+
     return 0;
 }

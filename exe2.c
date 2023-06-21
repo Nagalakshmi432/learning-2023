@@ -1,33 +1,24 @@
-
 #include <stdio.h>
-
-void printBits(unsigned int num);
-
 int main() {
-    unsigned int num;
-    printf("Enter a 32-bit integer: ");
-    scanf("%u", &num);
-    
-    printf("Bits: ");
-    printBits(num);
-    
-    return 0;
-}
-
-void printBits(unsigned int num) {
-    int i;
-    unsigned int mask = 1 << 31; // Start with the leftmost bit
-    
-    for (i = 0; i < 32; i++) {
-        // Use bitwise AND to check if the bit is set or not
-        if (num & mask)
-            printf("1");
-        else
-            printf("0");
-        
-        // Shift the mask to the right by 1 bit
-        mask >>= 1;
+    int n, i;
+    printf("Enter the size of the array: ");
+    scanf("%d", &n);
+    int array[n];
+    printf("Enter the elements of the array:\n");
+    for (i = 0; i < n; i++) {
+        scanf("%d", &array[i]);
     }
-    
-    printf("\n");
+    int min = array[0];
+    int max = array[0];  
+    for (i = 1; i < n; i++) {
+        if (array[i] < min) {
+            min = array[i];
+        }
+        else if (array[i] > max) {
+            max = array[i];
+        }
+    } 
+    printf("Minimum value: %d\n", min);
+    printf("Maximum value: %d\n", max); 
+    return 0;
 }
