@@ -1,51 +1,36 @@
 #include <stdio.h>
+#include <string.h>
 
 typedef struct {
-    double real;
-    double imag;
-} Complex;
+    int rollno;
+    char name[20];
+    float marks;
+} Student;
 
-Complex readComplexNumber() {
-    Complex num;
-    printf("Enter real part: ");
-    scanf("%lf", &num.real);
-    printf("Enter imaginary part: ");
-    scanf("%lf", &num.imag);
-    return num;
-}
+void initializeStudents(Student* students, int size) {
+    int i;
 
-void writeComplexNumber(Complex num) {
-    printf("Complex number: %.2lf + %.2lfi\n", num.real, num.imag);
-}
-
-Complex addComplexNumbers(Complex num1, Complex num2) {
-    Complex sum;
-    sum.real = num1.real + num2.real;
-    sum.imag = num1.imag + num2.imag;
-    return sum;
-}
-
-Complex multiplyComplexNumbers(Complex num1, Complex num2) {
-    Complex product;
-    product.real = (num1.real * num2.real) - (num1.imag * num2.imag);
-    product.imag = (num1.real * num2.imag) + (num1.imag * num2.real);
-    return product;
+    for (i = 0; i < size; i++) {
+        students[i].rollno = 0;
+        strcpy(students[i].name, "");
+        students[i].marks = 0.0;
+    }
 }
 
 int main() {
-    Complex num1, num2, sum, product;
+    int size, i;
+    Student students[5];
 
-    printf("Enter the first complex number:\n");
-    num1 = readComplexNumber();
+    size = sizeof(students) / sizeof(Student);
 
-    printf("Enter the second complex number:\n");
-    num2 = readComplexNumber();
+    // Initialize all the members of the array of structures
+    initializeStudents(students, size);
 
-    sum = addComplexNumbers(num1, num2);
-    printf("Sum of the complex numbers: %.2lf + %.2lfi\n", sum.real, sum.imag);
-
-    product = multiplyComplexNumbers(num1, num2);
-    printf("Product of the complex numbers: %.2lf + %.2lfi\n", product.real, product.imag);
+    // Display the initialized structures
+    printf("Student details after initialization:\n");
+    for (i = 0; i < size; i++) {
+        printf("Roll No: %d, Name: %s, Marks: %.2f\n", students[i].rollno, students[i].name, students[i].marks);
+    }
 
     return 0;
 }

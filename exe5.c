@@ -1,38 +1,67 @@
 #include <stdio.h>
+#include <string.h>
 
 typedef struct {
-    int x;
-    int y;
-} Point;
+    int rollno;
+    char name[20];
+    float marks;
+} Student;
 
-void swapFields(Point* p1, Point* p2) {
-    Point temp;
+int searchStudentByName(Student* students, int size, const char* name) {
+    int i;
 
-    // Swap the entire structures
-    temp = *p1;
-    *p1 = *p2;
-    *p2 = temp;
+    for (i = 0; i < size; i++) {
+        if (strcmp(students[i].name, name) == 0) {
+            return i; // Return the index if the name matches
+        }
+    }
+
+    return -1; // Return -1 if the name is not found
 }
 
 int main() {
-    Point point1, point2;
+    int size, i, searchIndex;
+    Student students[5];
+    char searchName[20];
 
-    // Initialize the points
-    point1.x = 2;
-    point1.y = 3;
-    point2.x = 4;
-    point2.y = 6;
+    size = sizeof(students) / sizeof(Student);
 
-    printf("Before swapping:\n");
-    printf("Point 1: (%d, %d)\n", point1.x, point1.y);
-    printf("Point 2: (%d, %d)\n", point2.x, point2.y);
+    // Initialize the array of structures with some values
+    students[0].rollno = 1;
+    strcpy(students[0].name, "John");
+    students[0].marks = 85.5;
 
-    // Swap the fields
-    swapFields(&point1, &point2);
+    students[1].rollno = 2;
+    strcpy(students[1].name, "Emma");
+    students[1].marks = 78.2;
 
-    printf("\nAfter swapping:\n");
-    printf("Point 1: (%d, %d)\n", point1.x, point1.y);
-    printf("Point 2: (%d, %d)\n", point2.x, point2.y);
+    students[2].rollno = 3;
+    strcpy(students[2].name, "Michael");
+    students[2].marks = 92.8;
+
+    students[3].rollno = 4;
+    strcpy(students[3].name, "Sophia");
+    students[3].marks = 67.9;
+
+    students[4].rollno = 5;
+    strcpy(students[4].name, "William");
+    students[4].marks = 91.1;
+
+    // Get the name to search from the user
+    printf("Enter the name to search: ");
+    fgets(searchName, sizeof(searchName), stdin);
+    searchName[strcspn(searchName, "\n")] = '\0'; // Remove the trailing newline character
+
+    // Perform the search operation
+    searchIndex = searchStudentByName(students, size, searchName);
+
+    // Display the search result
+    if (searchIndex != -1) {
+        printf("Student found at index %d\n", searchIndex);
+        printf("Roll No: %d, Name: %s, Marks: %.2f\n", students[searchIndex].rollno, students[searchIndex].name, students[searchIndex].marks);
+    } else {
+        printf("Student not found\n");
+    }
 
     return 0;
 }

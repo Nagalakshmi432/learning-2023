@@ -1,43 +1,66 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-struct Box {
-    double length;
-    double width;
-    double height;
+struct Student {
+    int rollno;
+    char name[20];
+    float marks;
 };
 
-double calculateVolume(struct Box* box) {
-    return box->length * box->width * box->height;
-}
+void parseAndInitialize(char* input, struct Student* students, int size) {
+    char* token;
+    int i = 0;
 
-double calculateSurfaceArea(struct Box* box) {
-    double length = box->length;
-    double width = box->width;
-    double height = box->height;
-    
-    double topArea = length * width;
-    double sideArea1 = length * height;
-    double sideArea2 = width * height;
-    
-    return 2 * (topArea + sideArea1 + sideArea2);
+    // Tokenize the input string
+    token = strtok(input, " ");
+
+    // Parse and initialize the structures
+    while (token != NULL && i < size) {
+        students[i].rollno = atoi(token);
+
+        token = strtok(NULL, " ");
+        strcpy(students[i].name, token);
+
+        token = strtok(NULL, " ");
+        students[i].marks = atof(token);
+
+        token = strtok(NULL, " ");
+        i++;
+    }
 }
 
 int main() {
-    struct Box myBox;
-    struct Box* boxPtr = &myBox;
-    
-    // Initialize the box dimensions
-    boxPtr->length = 4.0;
-    boxPtr->width = 2.0;
-    boxPtr->height = 3.0;
-    
-    // Calculate volume and surface area
-    double volume = calculateVolume(boxPtr);
-    double surfaceArea = calculateSurfaceArea(boxPtr);
-    
-    // Display the results
-    printf("Volume: %.2f\n", volume);
-    printf("Surface Area: %.2f\n", surfaceArea);
-    
+    int size, i;
+    char input[100];
+    struct Student* students;
+
+    printf("Enter the number of students: ");
+    scanf("%d", &size);
+
+    // Allocate memory for 'size' students
+    students = (struct Student*)malloc(size * sizeof(struct Student));
+    if (students == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    getchar(); // Consume the newline character
+
+    printf("Enter the student data in the format 'rollno name marks':\n");
+    for (i = 0; i < size; i++) {
+        fgets(input, sizeof(input), stdin);
+        parseAndInitialize(input, &students[i], 1);
+    }
+
+    // Display the initialized structures
+    printf("\nStudent details:\n");
+    for (i = 0; i < size; i++) {
+        printf("Roll No: %d, Name: %s, Marks: %.2f\n", students[i].rollno, students[i].name, students[i].marks);
+    }
+
+    // Free dynamically allocated memory
+    free(students);
+
     return 0;
 }
